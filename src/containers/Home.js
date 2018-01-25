@@ -3,11 +3,22 @@ import PropTypes from 'prop-types'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
+import Loader from 'components/Loader'
+import UserForm from 'components/User/Form'
+import UserInfo from 'components/User/Info'
 import { getUserByName } from 'actions/user'
 
 class ChangeUser extends PureComponent {
   static propTypes = {
+    fetching: PropTypes.bool,
+    fetched: PropTypes.bool,
+    userData: PropTypes.object,
     getUserByName: PropTypes.func.isRequired
+  }
+
+  static defaultProps = {
+    fetching: false,
+    userData: {}
   }
 
   componentWillMount () {
@@ -18,14 +29,38 @@ class ChangeUser extends PureComponent {
     }
   }
 
+  renderUserInfo = () => {
+    const { fetching, fetched, userData } = this.props
+
+    if (fetching) {
+      return (<Loader />)
+    }
+
+    if (fetched) {
+      return (<UserInfo data={userData} />)
+    }
+  }
+
   render () {
+    const { fetching, getUserByName } = this.props
+
     return (
-      <div>Change user</div>
+      <div>
+        <UserForm fetching={fetching} submit={getUserByName} />
+
+        <div>
+          { this.renderUserInfo() }
+        </div>
+      </div>
     )
   }
 }
 
 export default connect(
-  null,
+  (state) => ({
+    fetching: state.user.fetching,
+    fetched: state.user.fetched,
+    userData: state.user.userData
+  }),
   (dispatch) => bindActionCreators({ getUserByName }, dispatch)
 )(ChangeUser)

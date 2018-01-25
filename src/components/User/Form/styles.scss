@@ -1,0 +1,36 @@
+.user-form-container {
+  max-width: 640px;
+  margin: 64px auto;
+  border: 2px solid green;
+  text-align: center;
+
+  h2 {
+    margin: 0;
+    padding: 0.5em;
+    background-color: green;
+  }
+
+  form {
+    $btnHeight: 24px;
+    $verticalMargin: 16px;
+
+    position: relative;
+    padding-bottom: $btnHeight + 2*$verticalMargin;
+
+    input {
+      width: 80%;
+      margin: $verticalMargin 0;
+      padding: 8px 16px;
+      border-radius: 4px;
+    }
+
+    button {
+      position: absolute;
+      min-width: 72px;
+      height: $btnHeight;
+      bottom: $verticalMargin;
+      right: 16px;
+      border-radius: 4px;
+    }
+  }
+}

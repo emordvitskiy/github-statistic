@@ -3,6 +3,7 @@ import { GET_USER } from 'constants/actionTypes'
 
 const initialState = {
   fetching: false,
+  fetched: false,
   userData: null,
   error: null
 }
@@ -13,11 +14,13 @@ export default function app (state = initialState, action) {
       return {
         ...state,
         fetching: true,
+        fetched: false,
         error: null
       }
     case `${GET_USER}_${FULFILLED}`:
       return {
         fetching: false,
+        fetched: true,
         userData: action.payload.data,
         error: null
       }

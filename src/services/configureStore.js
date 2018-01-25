@@ -4,9 +4,10 @@ import {persistState} from 'redux-devtools'
 import DevTools from 'components/DevTools'
 import rootReducer from 'reducers'
 import {createLogger} from 'redux-logger'
+import reduxPromiseMiddleware from 'redux-promise-middleware'
 
 export default function configureStore (initialState = {}) {
-  const middleware = [thunk]
+  const middleware = [thunk, reduxPromiseMiddleware()]
   if (process.env.NODE_ENV !== 'production') {
     middleware.push(createLogger({
       collapsed: true,

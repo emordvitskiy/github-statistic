@@ -1,24 +1,22 @@
 import { GET_USER } from 'constants/actionTypes'
-import Api from 'services/Api'
-
-const api = new Api({
-  baseUrl: 'https://api.github.com',
-  headers: {
-    'Accept': 'application/vnd.github.v3+json',
-    'User-Agent': 'Awesome-Octocat-App'
-  }
-})
+import API from 'services/Api'
 
 export function getUserByName (name) {
-  return (dispatch) => ({
+  return (dispatch) => dispatch({
     type: GET_USER,
-    payload: api.get(`users/${name}`)
-      .then(response => {
+    payload: API.get(`users/${name}`)
+      .then(({ data }) => {
         localStorage.setItem('user', name)
 
         return {
-          name: response.login,
-          data: {}
+          name: data.login,
+          data: {
+            login: data.login,
+            avatar_url: data.avatar_url,
+            githubLink: data.html_url,
+            name: data.name,
+            email: data.email
+          }
         }
       })
   })
