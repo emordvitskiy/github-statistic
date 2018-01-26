@@ -18,6 +18,7 @@ class ChangeUser extends PureComponent {
 
   static defaultProps = {
     fetching: false,
+    fetched: false,
     userData: {}
   }
 

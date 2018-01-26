@@ -52,7 +52,7 @@ export default class UserInfo extends PureComponent {
         </table>
 
         <div styleName='link-container'>
-          <Link to={githubLink}>link to github</Link>
+          <a href={githubLink}>On github</a>
           <Link to='/repositories'>User repositories</Link>
         </div>
       </div>

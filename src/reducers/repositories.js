@@ -1,30 +1,37 @@
 import { PENDING, FULFILLED, REJECTED } from 'redux-promise-middleware'
-import { GET_USER } from 'constants/actionTypes'
+import { GET_REPOSITORIES } from 'constants/actionTypes'
 
 const initialState = {
   fetching: false,
   fetched: false,
-  userData: null,
+  list: null,
   error: null
 }
 
-export default function user (state = initialState, action) {
+export default function repositories (state = initialState, action) {
   switch (action.type) {
-    case `${GET_USER}_${PENDING}`:
+    case `${GET_REPOSITORIES}_${PENDING}`:
       return {
         ...state,
         fetching: true,
         fetched: false,
         error: null
       }
-    case `${GET_USER}_${FULFILLED}`:
+    case `${GET_REPOSITORIES}_${FULFILLED}`:
+      const { data } = action.payload
+
       return {
         fetching: false,
         fetched: true,
-        userData: action.payload.data,
+        list: data.map(item => ({
+          name: item.name,
+          githubLink: item.html_url,
+          description: item.description,
+          createdAt: item.created_at
+        })),
         error: null
       }
-    case `${GET_USER}_${REJECTED}`:
+    case `${GET_REPOSITORIES}_${REJECTED}`:
       return {
         ...state,
         fetching: false,

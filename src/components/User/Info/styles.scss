@@ -12,17 +12,5 @@
 
   .link-container {
     text-align: right;
-
-    a {
-      display: inline-block;
-      padding: 0.5em 1em;
-      text-decoration: none;
-      color: #777;
-
-      &:hover {
-        text-decoration: underline;
-        color: #333;
-      }
-    }
   }
 }

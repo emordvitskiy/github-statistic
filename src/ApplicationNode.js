@@ -26,12 +26,14 @@ const ApplicationNode = ({store}) => {
 
           {process.env.NODE_ENV !== 'production' && <DevTools /> }
 
-          <Switch>
-            <Route exact path='/' component={Home} />
-            <Route exact path='/repositories' component={RepositoryList} />
-            <Route exact path='/repositories/:id' component={Repository} />
-            <Route component={NotFound} />
-          </Switch>
+          <div styleName='page-container'>
+            <Switch>
+              <Route exact path='/' component={Home} />
+              <Route exact path='/repositories' component={RepositoryList} />
+              <Route exact path='/repositories/:id' component={Repository} />
+              <Route component={NotFound} />
+            </Switch>
+          </div>
 
           <Footer />
         </div>
