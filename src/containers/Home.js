@@ -12,6 +12,7 @@ class ChangeUser extends PureComponent {
   static propTypes = {
     fetching: PropTypes.bool,
     fetched: PropTypes.bool,
+    curUser: PropTypes.string,
     userData: PropTypes.object,
     getUserByName: PropTypes.func.isRequired
   }
@@ -19,14 +20,15 @@ class ChangeUser extends PureComponent {
   static defaultProps = {
     fetching: false,
     fetched: false,
+    curUser: null,
     userData: {}
   }
 
   componentWillMount () {
-    const curUser = localStorage.getItem('user')
+    const { curUser, getUserByName } = this.props
 
     if (curUser !== null && curUser !== '') {
-      this.props.getUserByName(curUser)
+      getUserByName(curUser)
     }
   }
 
@@ -61,6 +63,7 @@ export default connect(
   (state) => ({
     fetching: state.user.fetching,
     fetched: state.user.fetched,
+    curUser: state.user.curUser,
     userData: state.user.userData
   }),
   (dispatch) => bindActionCreators({ getUserByName }, dispatch)

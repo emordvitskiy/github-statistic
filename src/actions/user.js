@@ -1,5 +1,12 @@
-import { GET_USER } from 'constants/actionTypes'
+import { SET_CUR_USER, GET_USER } from 'constants/actionTypes'
 import API from 'services/Api'
+
+export function setCurUser (name) {
+  return {
+    type: SET_CUR_USER,
+    payload: name
+  }
+}
 
 export function getUserByName (name) {
   return (dispatch) => dispatch({
@@ -7,6 +14,7 @@ export function getUserByName (name) {
     payload: API.get(`users/${name}`)
       .then(({ data }) => {
         localStorage.setItem('user', name)
+        dispatch(setCurUser(name))
 
         return {
           name: data.login,

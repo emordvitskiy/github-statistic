@@ -7,9 +7,8 @@ function RepositoryList (props) {
   return (
     <ul>
       { props.list.map(item => (
-          <Item key={item.id} {...item} />
-        ))
-      }
+        <Item key={item.id} {...item} />
+      ))}
     </ul>
   )
 }
