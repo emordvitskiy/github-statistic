@@ -6,7 +6,10 @@ import { withRouter } from 'react-router'
 export default function (Component) {
   class UserWrapper extends PureComponent {
     static propTypes = {
-      curUser: PropTypes.string
+      curUser: PropTypes.string,
+      history: PropTypes.shape({
+        push: PropTypes.func.isRequired
+      }).isRequired
     }
 
     static defaultProps = {
@@ -22,7 +25,7 @@ export default function (Component) {
     }
 
     render () {
-      return <Component />
+      return <Component {...this.props} />
     }
   }
 

@@ -45,7 +45,7 @@ class ApplicationNode extends Component {
               <Switch>
                 <Route exact path='/' component={Home} />
                 <Route exact path='/repositories' component={userWrapper(RepositoryList)} />
-                <Route exact path='/repositories/:id' component={userWrapper(Repository)} />
+                <Route exact path='/repositories/:name' component={userWrapper(Repository)} />
                 <Route component={NotFound} />
               </Switch>
             </div>
