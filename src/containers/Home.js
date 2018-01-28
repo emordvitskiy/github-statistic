@@ -4,16 +4,18 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import Loader from 'components/Loader'
+import ErrorMessage from 'components/Error'
 import UserForm from 'components/User/Form'
 import UserInfo from 'components/User/Info'
 import { getUserByName } from 'actions/user'
 
-class ChangeUser extends PureComponent {
+class Home extends PureComponent {
   static propTypes = {
     fetching: PropTypes.bool,
     fetched: PropTypes.bool,
     curUser: PropTypes.string,
     userData: PropTypes.object,
+    error: PropTypes.string,
     getUserByName: PropTypes.func.isRequired
   }
 
@@ -33,10 +35,19 @@ class ChangeUser extends PureComponent {
   }
 
   renderUserInfo = () => {
-    const { fetching, fetched, userData } = this.props
+    const {
+      fetching,
+      fetched,
+      userData,
+      error
+    } = this.props
 
     if (fetching) {
       return (<Loader />)
+    }
+
+    if (error) {
+      return <ErrorMessage text={error} />
     }
 
     if (fetched) {
@@ -67,7 +78,8 @@ export default connect(
     fetching: state.user.fetching,
     fetched: state.user.fetched,
     curUser: state.user.curUser,
-    userData: state.user.userData
+    userData: state.user.userData,
+    error: state.user.error
   }),
   (dispatch) => bindActionCreators({ getUserByName }, dispatch)
-)(ChangeUser)
+)(Home)

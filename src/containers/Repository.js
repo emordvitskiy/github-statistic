@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import Loader from 'components/Loader'
+import ErrorMessage from 'components/Error'
 import Histogramm from 'components/Histogramm'
 import { repositoryStats } from 'actions/repositories'
 
@@ -23,6 +24,7 @@ class Repository extends PureComponent {
         week: PropTypes.number
       })
     ),
+    error: PropTypes.string,
     repositoryStats: PropTypes.func.isRequired
   }
 
@@ -33,10 +35,19 @@ class Repository extends PureComponent {
   }
 
   renderUserInfo = () => {
-    const { fetching, fetched, commitsStats } = this.props
+    const {
+      fetching,
+      fetched,
+      commitsStats,
+      error
+    } = this.props
 
     if (fetching) {
       return (<Loader />)
+    }
+
+    if (error) {
+      return <ErrorMessage text={error} />
     }
 
     if (fetched) {
@@ -61,7 +72,8 @@ export default connect(
   (state) => ({
     fetching: state.repository.fetching,
     fetched: state.repository.fetched,
-    commitsStats: state.repository.commitsStats
+    commitsStats: state.repository.commitsStats,
+    error: state.repository.error
   }),
   (dispatch) => bindActionCreators({ repositoryStats }, dispatch)
 )(Repository)

@@ -1,8 +1,6 @@
 import { GET_REPOSITORIES, GET_REPOSITORY } from 'constants/actionTypes'
 import API from 'services/Api'
 
-import commitsData from './commitsFixture'
-
 export function getUserRepositories (userName) {
   return (dispatch) => dispatch({
     type: GET_REPOSITORIES,
@@ -29,8 +27,7 @@ export function repositoryStats (name) {
 
     return dispatch({
       type: GET_REPOSITORY,
-      // payload: API.get(`repos/${userName}/${name}/stats/commit_activity`)
-      payload: Promise.resolve({ data: commitsData })
+      payload: API.get(`repos/${userName}/${name}/stats/commit_activity`)
     })
   }
 }

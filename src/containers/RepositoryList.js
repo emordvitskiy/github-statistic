@@ -4,6 +4,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
 import Loader from 'components/Loader'
+import ErrorMessage from 'components/Error'
 import List from 'components/Repositories/List'
 import { getUserRepositories } from 'actions/repositories'
 
@@ -12,6 +13,7 @@ class RepositoryList extends PureComponent {
     fetching: PropTypes.bool,
     fetched: PropTypes.bool,
     repositories: PropTypes.arrayOf(PropTypes.object),
+    error: PropTypes.string,
     getUserRepositories: PropTypes.func.isRequired
   }
 
@@ -30,10 +32,19 @@ class RepositoryList extends PureComponent {
   }
 
   renderRepositoryList = () => {
-    const { fetching, fetched, repositories } = this.props
+    const {
+      fetching,
+      fetched,
+      repositories,
+      error
+    } = this.props
 
     if (fetching) {
       return (<Loader />)
+    }
+
+    if (error) {
+      return <ErrorMessage text={error} />
     }
 
     if (fetched) {
@@ -56,7 +67,8 @@ export default connect(
   (state) => ({
     fetching: state.repositories.fetching,
     fetched: state.repositories.fetched,
-    repositories: state.repositories.list
+    repositories: state.repositories.list,
+    error: state.repositories.error
   }),
   (dispatch) => bindActionCreators({ getUserRepositories }, dispatch)
 )(RepositoryList)
