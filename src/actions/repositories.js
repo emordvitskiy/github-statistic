@@ -1,6 +1,8 @@
 import { GET_REPOSITORIES, GET_REPOSITORY } from 'constants/actionTypes'
 import API from 'services/Api'
 
+import commitsData from './commitsFixture'
+
 export function getUserRepositories (userName) {
   return (dispatch) => dispatch({
     type: GET_REPOSITORIES,
@@ -10,13 +12,25 @@ export function getUserRepositories (userName) {
   })
 }
 
-export function getRepositoryByName (name) {
+// export function getRepositoryByName (name) {
+//   return (dispatch, getState) => {
+//     const { curUser: userName } = getState().user
+//
+//     return {
+//       type: GET_REPOSITORY,
+//       payload: API.get(`repos/${userName}/${name}`)
+//     }
+//   }
+// }
+
+export function repositoryStats (name) {
   return (dispatch, getState) => {
     const { curUser: userName } = getState().user
 
-    return {
+    return dispatch({
       type: GET_REPOSITORY,
-      payload: API.get(`repos/${userName}/${name}`)
-    }
+      // payload: API.get(`repos/${userName}/${name}/stats/commit_activity`)
+      payload: Promise.resolve({ data: commitsData })
+    })
   }
 }
