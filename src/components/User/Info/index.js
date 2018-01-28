@@ -8,7 +8,7 @@ export default class UserInfo extends PureComponent {
   static propTypes = {
     data: PropTypes.shape({
       login: PropTypes.string.isRequired,
-      avatar_url: PropTypes.string.isRequired,
+      avatarUrl: PropTypes.string.isRequired,
       githubLink: PropTypes.string.isRequired,
       name: PropTypes.string.isRequired,
       email: PropTypes.string
@@ -18,7 +18,7 @@ export default class UserInfo extends PureComponent {
   render () {
     const {
       login,
-      avatar_url,
+      avatarUrl,
       githubLink,
       name,
       email
@@ -27,6 +27,8 @@ export default class UserInfo extends PureComponent {
     return (
       <div styleName='user-info'>
         <h2>User repository information</h2>
+
+        <img src={avatarUrl} />
 
         <table>
           <tbody>

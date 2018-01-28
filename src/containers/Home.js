@@ -45,14 +45,17 @@ class ChangeUser extends PureComponent {
   }
 
   render () {
-    const { fetching, getUserByName } = this.props
+    const { curUser, fetching, getUserByName } = this.props
 
     return (
       <div>
         <UserForm fetching={fetching} submit={getUserByName} />
 
         <div>
-          { this.renderUserInfo() }
+          { curUser
+            ? this.renderUserInfo()
+            : 'User is not set'
+          }
         </div>
       </div>
     )

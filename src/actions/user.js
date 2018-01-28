@@ -20,7 +20,7 @@ export function getUserByName (name) {
           name: data.login,
           data: {
             login: data.login,
-            avatar_url: data.avatar_url,
+            avatarUrl: data.avatar_url,
             githubLink: data.html_url,
             name: data.name,
             email: data.email
