@@ -34,7 +34,7 @@ class Repository extends PureComponent {
     repositoryStats(match.params.name)
   }
 
-  renderUserInfo = () => {
+  renderRepository = () => {
     const {
       fetching,
       fetched,
@@ -51,7 +51,11 @@ class Repository extends PureComponent {
     }
 
     if (fetched) {
-      return (<Histogramm data={commitsStats} />)
+      if (Array.isArray(commitsStats) && commitsStats.length > 0) {
+        return (<Histogramm data={commitsStats} />)
+      }
+
+      return 'Not enough data'
     }
   }
 
@@ -62,7 +66,7 @@ class Repository extends PureComponent {
       <div>
         <h2><em>{ repositoryName }</em> commits per week</h2>
 
-        { this.renderUserInfo() }
+        { this.renderRepository() }
       </div>
     )
   }
