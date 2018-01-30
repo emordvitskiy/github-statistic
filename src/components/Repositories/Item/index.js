@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { Link } from 'react-router-dom'
+import moment from 'moment'
 
 import './styles.scss'
 
@@ -29,7 +30,7 @@ export default class RepositoryListItem extends PureComponent {
         <a href={githubLink}>On github</a>
 
         <div styleName='repository-item-footer'>
-          <span>Created {createdAt}</span>
+          <span>Created {moment(createdAt).format('DD.MM.YYYY')}</span>
           <Link to={`/repositories/${name}`}>More</Link>
         </div>
       </li>
