@@ -10,7 +10,7 @@ export default class UserInfo extends PureComponent {
       login: PropTypes.string.isRequired,
       avatarUrl: PropTypes.string.isRequired,
       githubLink: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
+      name: PropTypes.string,
       email: PropTypes.string
     }).isRequired
   }
@@ -37,10 +37,14 @@ export default class UserInfo extends PureComponent {
               <td>{login}</td>
             </tr>
 
-            <tr>
-              <td>Name</td>
-              <td>{name}</td>
-            </tr>
+            { name &&
+              (
+                <tr>
+                  <td>Name</td>
+                  <td>{name}</td>
+                </tr>
+              )
+            }
 
             { email &&
               (
