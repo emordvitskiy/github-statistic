@@ -24,6 +24,7 @@ export default function repositories (state = initialState, action) {
         fetching: false,
         fetched: true,
         list: data.map(item => ({
+          id: item.id,
           name: item.name,
           githubLink: item.html_url,
           description: item.description,
