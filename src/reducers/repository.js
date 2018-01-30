@@ -28,7 +28,7 @@ export default function repositories (state = initialState, action) {
       return {
         ...state,
         fetching: false,
-        error: action.payload
+        error: action.payload.message
       }
     default:
       return state
