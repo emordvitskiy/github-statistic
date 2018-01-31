@@ -29,7 +29,7 @@ class Home extends PureComponent {
   componentWillMount () {
     const { curUser, getUserByName } = this.props
 
-    if (curUser !== null && curUser !== '') {
+    if (curUser) {
       getUserByName(curUser)
     }
   }

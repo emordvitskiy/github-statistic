@@ -10,6 +10,7 @@ import { getUserRepositories } from 'actions/repositories'
 
 class RepositoryList extends PureComponent {
   static propTypes = {
+    curUser: PropTypes.string.isRequired,
     fetching: PropTypes.bool,
     fetched: PropTypes.bool,
     repositories: PropTypes.arrayOf(PropTypes.object),
@@ -24,11 +25,9 @@ class RepositoryList extends PureComponent {
   }
 
   componentWillMount () {
-    const curUser = localStorage.getItem('user')
+    const { curUser, getUserRepositories } = this.props
 
-    if (curUser !== null && curUser !== '') {
-      this.props.getUserRepositories(curUser)
-    }
+    getUserRepositories(curUser)
   }
 
   renderRepositoryList = () => {
@@ -65,6 +64,7 @@ class RepositoryList extends PureComponent {
 
 export default connect(
   (state) => ({
+    curUser: state.user.curUser,
     fetching: state.repositories.fetching,
     fetched: state.repositories.fetched,
     repositories: state.repositories.list,

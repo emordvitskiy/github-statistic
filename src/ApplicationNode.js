@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import PropTypes from 'prop-types'
 import {Provider} from 'react-redux'
 import {Router, Switch, Route} from 'react-router-dom'
@@ -13,49 +13,36 @@ import Home from 'containers/Home'
 import RepositoryList from 'containers/RepositoryList'
 import Repository from 'containers/Repository'
 import NotFound from 'components/NotFound'
-import { setCurUser } from 'actions/user'
 
 import './styles.scss'
 
-class ApplicationNode extends Component {
-  static propTypes = {
-    store: PropTypes.object.isRequired
-  }
+const ApplicationNode = ({store}) => (
+  <Provider store={store}>
+    <Router history={history}>
+      <div>
+        <Header />
 
-  componentWillMount () {
-    const curUser = localStorage.getItem('user')
+        <Navigation />
 
-    if (curUser !== null && curUser !== '') {
-      this.props.store.dispatch(setCurUser(curUser))
-    }
-  }
+        {process.env.NODE_ENV !== 'production' && <DevTools /> }
 
-  render () {
-    return (
-      <Provider store={this.props.store}>
-        <Router history={history}>
-          <div>
-            <Header />
+        <div styleName='page-container'>
+          <Switch>
+            <Route exact path='/' component={Home} />
+            <Route exact path='/repositories' component={userWrapper(RepositoryList)} />
+            <Route exact path='/repositories/:name' component={userWrapper(Repository)} />
+            <Route component={NotFound} />
+          </Switch>
+        </div>
 
-            <Navigation />
+        <Footer />
+      </div>
+    </Router>
+  </Provider>
+)
 
-            {process.env.NODE_ENV !== 'production' && <DevTools /> }
-
-            <div styleName='page-container'>
-              <Switch>
-                <Route exact path='/' component={Home} />
-                <Route exact path='/repositories' component={userWrapper(RepositoryList)} />
-                <Route exact path='/repositories/:name' component={userWrapper(Repository)} />
-                <Route component={NotFound} />
-              </Switch>
-            </div>
-
-            <Footer />
-          </div>
-        </Router>
-      </Provider>
-    )
-  }
+ApplicationNode.propTypes = {
+  store: PropTypes.object.isRequired
 }
 
 export default ApplicationNode

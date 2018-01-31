@@ -13,7 +13,6 @@ export function getUserByName (name) {
     type: GET_USER,
     payload: API.get(`users/${name}`)
       .then(({ data }) => {
-        localStorage.setItem('user', name)
         dispatch(setCurUser(name))
 
         return {
