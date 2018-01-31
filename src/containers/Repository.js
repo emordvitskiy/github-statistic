@@ -17,13 +17,16 @@ class Repository extends PureComponent {
     }).isRequired,
     fetching: PropTypes.bool,
     fetched: PropTypes.bool,
-    commitsStats: PropTypes.arrayOf(
-      PropTypes.shape({
-        days: PropTypes.arrayOf(PropTypes.number),
-        total: PropTypes.number,
-        week: PropTypes.number
-      })
-    ),
+    commitsStats: PropTypes.oneOfType([
+      PropTypes.arrayOf(
+        PropTypes.shape({
+          days: PropTypes.arrayOf(PropTypes.number),
+          total: PropTypes.number,
+          week: PropTypes.number
+        })
+      ),
+      PropTypes.object
+    ]),
     error: PropTypes.string,
     repositoryStats: PropTypes.func.isRequired
   }
