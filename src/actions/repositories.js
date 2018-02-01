@@ -10,17 +10,6 @@ export function getUserRepositories (userName) {
   })
 }
 
-// export function getRepositoryByName (name) {
-//   return (dispatch, getState) => {
-//     const { curUser: userName } = getState().user
-//
-//     return {
-//       type: GET_REPOSITORY,
-//       payload: API.get(`repos/${userName}/${name}`)
-//     }
-//   }
-// }
-
 export function repositoryStats (name) {
   return (dispatch, getState) => {
     const { curUser: userName } = getState().user
