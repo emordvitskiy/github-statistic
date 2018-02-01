@@ -3,8 +3,7 @@ import { GET_REPOSITORIES } from 'constants/actionTypes'
 
 const initialState = {
   fetching: false,
-  fetched: false,
-  list: null,
+  list: [],
   error: null
 }
 
@@ -14,7 +13,6 @@ export default function repositories (state = initialState, action) {
       return {
         ...state,
         fetching: true,
-        fetched: false,
         error: null
       }
     case `${GET_REPOSITORIES}_${FULFILLED}`:
@@ -22,7 +20,6 @@ export default function repositories (state = initialState, action) {
 
       return {
         fetching: false,
-        fetched: true,
         list: data.map(item => ({
           id: item.id,
           name: item.name,

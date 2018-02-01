@@ -16,7 +16,6 @@ class Repository extends PureComponent {
       }).isRequired
     }).isRequired,
     fetching: PropTypes.bool,
-    fetched: PropTypes.bool,
     commitsStats: PropTypes.oneOfType([
       PropTypes.arrayOf(
         PropTypes.shape({
@@ -40,7 +39,6 @@ class Repository extends PureComponent {
   renderRepository = () => {
     const {
       fetching,
-      fetched,
       commitsStats,
       error
     } = this.props
@@ -53,13 +51,11 @@ class Repository extends PureComponent {
       return <ErrorMessage text={error} />
     }
 
-    if (fetched) {
-      if (Array.isArray(commitsStats) && commitsStats.length > 0) {
-        return (<Histogramm data={commitsStats} />)
-      }
-
-      return 'Not enough data'
+    if (Array.isArray(commitsStats) && commitsStats.length > 0) {
+      return (<Histogramm data={commitsStats} />)
     }
+
+    return 'Not enough data'
   }
 
   render () {
@@ -78,7 +74,6 @@ class Repository extends PureComponent {
 export default connect(
   (state) => ({
     fetching: state.repository.fetching,
-    fetched: state.repository.fetched,
     commitsStats: state.repository.commitsStats,
     error: state.repository.error
   }),

@@ -19,13 +19,17 @@ export default function (Component) {
     componentWillMount () {
       const { curUser, history } = this.props
 
-      if (curUser === null || curUser === '') {
+      if (!curUser) {
         history.push('/')
       }
     }
 
     render () {
-      return <Component {...this.props} />
+      const { curUser } = this.props
+
+      return curUser
+        ? (<Component {...this.props} />)
+        : null
     }
   }
 

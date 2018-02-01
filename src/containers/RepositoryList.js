@@ -12,7 +12,6 @@ class RepositoryList extends PureComponent {
   static propTypes = {
     curUser: PropTypes.string.isRequired,
     fetching: PropTypes.bool,
-    fetched: PropTypes.bool,
     repositories: PropTypes.arrayOf(PropTypes.object),
     error: PropTypes.string,
     getUserRepositories: PropTypes.func.isRequired
@@ -20,8 +19,7 @@ class RepositoryList extends PureComponent {
 
   static defaultProps = {
     fetching: false,
-    fetched: false,
-    repositories: null
+    repositories: []
   }
 
   componentWillMount () {
@@ -33,7 +31,6 @@ class RepositoryList extends PureComponent {
   renderRepositoryList = () => {
     const {
       fetching,
-      fetched,
       repositories,
       error
     } = this.props
@@ -46,9 +43,7 @@ class RepositoryList extends PureComponent {
       return <ErrorMessage text={error} />
     }
 
-    if (fetched) {
-      return (<List list={repositories} />)
-    }
+    return (<List list={repositories} />)
   }
 
   render () {
@@ -66,7 +61,6 @@ export default connect(
   (state) => ({
     curUser: state.user.curUser,
     fetching: state.repositories.fetching,
-    fetched: state.repositories.fetched,
     repositories: state.repositories.list,
     error: state.repositories.error
   }),

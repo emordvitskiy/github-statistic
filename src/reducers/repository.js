@@ -3,7 +3,6 @@ import { GET_REPOSITORY } from 'constants/actionTypes'
 
 const initialState = {
   fetching: false,
-  fetched: false,
   commitsStats: [],
   error: null
 }
@@ -14,13 +13,11 @@ export default function repositories (state = initialState, action) {
       return {
         ...state,
         fetching: true,
-        fetched: false,
         error: null
       }
     case `${GET_REPOSITORY}_${FULFILLED}`:
       return {
         fetching: false,
-        fetched: true,
         commitsStats: action.payload.data,
         error: null
       }

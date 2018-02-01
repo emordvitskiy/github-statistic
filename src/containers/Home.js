@@ -12,7 +12,6 @@ import { getUserByName } from 'actions/user'
 class Home extends PureComponent {
   static propTypes = {
     fetching: PropTypes.bool,
-    fetched: PropTypes.bool,
     curUser: PropTypes.string,
     userData: PropTypes.object,
     error: PropTypes.string,
@@ -21,7 +20,6 @@ class Home extends PureComponent {
 
   static defaultProps = {
     fetching: false,
-    fetched: false,
     curUser: null,
     userData: {}
   }
@@ -37,7 +35,6 @@ class Home extends PureComponent {
   renderUserInfo = () => {
     const {
       fetching,
-      fetched,
       userData,
       error
     } = this.props
@@ -50,9 +47,7 @@ class Home extends PureComponent {
       return <ErrorMessage text={error} />
     }
 
-    if (fetched) {
-      return (<UserInfo data={userData} />)
-    }
+    return (<UserInfo data={userData} />)
   }
 
   render () {
@@ -76,7 +71,6 @@ class Home extends PureComponent {
 export default connect(
   (state) => ({
     fetching: state.user.fetching,
-    fetched: state.user.fetched,
     curUser: state.user.curUser,
     userData: state.user.userData,
     error: state.user.error
