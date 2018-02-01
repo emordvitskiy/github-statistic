@@ -13,10 +13,19 @@ export function getUserRepositories (userName) {
 export function repositoryStats (name) {
   return (dispatch, getState) => {
     const { curUser: userName } = getState().user
+    const url = `repos/${userName}/${name}/stats/commit_activity`
 
     return dispatch({
       type: GET_REPOSITORY,
-      payload: API.get(`repos/${userName}/${name}/stats/commit_activity`)
+      payload: API.get(url)
+        .then((response) => {
+          // repeat if reponse was returned with status 202
+          if (response.status === 202) {
+            return API.get(url)
+          }
+
+          return response
+        })
     })
   }
 }
